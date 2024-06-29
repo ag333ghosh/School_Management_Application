@@ -1,0 +1,40 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: API-Gateway
+
+  config:
+    import: optional:configserver:http://localhost:8083
+
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: SCHOOL-MICRO
+            uri: http://localhost:8080
+            predicates:
+              - Path=/School/**
+
+          - id: STUDENT-MICRO
+            uri: http://localhost:8081
+            predicates:
+              - Path=/Student/**
+
+#  main:
+#    allow-bean-definition-overriding: true
+#    web-application-type: reactive
+
+
+#okta:
+#  oauth2:
+#    issuer: https://dev-75606673.okta.com/oauth2/default
+#    audience: api://default
+#    client-id: 0oahee13zfeKUdKjh5d7
+#    client-secret: 0ck4RNGYuIQ_I6dZE4R-opOCMwFHItTEk_ipORcYVaXfXbmz-oz-jWm0oXvhWy_4
+#    scopes:
+#      - openid
+#      - profile
+#      - email
+#      - offline_access

@@ -1,0 +1,19 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+
+#cloud configuration download
+spring:
+  config:
+    import: optional:configserver:http://localhost:8083
+
+#logging configuration
+  output:
+    ansi:
+      enabled: ALWAYS

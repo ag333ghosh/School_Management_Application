@@ -1,0 +1,16 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: Cloud-Config
+
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ag333ghosh/Student-School
+#          clone-on-start: true
+          username: ag333ghosh
+          password: Ag330ghosh

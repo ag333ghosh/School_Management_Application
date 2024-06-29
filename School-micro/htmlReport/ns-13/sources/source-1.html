@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > StudentServiceImp</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">Student.Student_micro.Service.Impl</a>
+</div>
+
+<h1>Coverage Summary for Class: StudentServiceImp (Student.Student_micro.Service.Impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentServiceImp</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6.2%
+  </span>
+  <span class="absValue">
+    (1/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package Student.Student_micro.Service.Impl;
+&nbsp;
+&nbsp;import Student.Student_micro.Entiey.Student;
+&nbsp;import Student.Student_micro.Exception.ResourceNotFound;
+&nbsp;import Student.Student_micro.Repository.StudentRepository;
+&nbsp;import Student.Student_micro.Service.StudentService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;@Service
+<b class="fc">&nbsp;public class StudentServiceImp implements StudentService {</b>
+&nbsp;    @Autowired
+&nbsp;    private StudentRepository studentRepository;
+&nbsp;    @Override
+&nbsp;    public Student save(Student student) {
+&nbsp;
+<b class="nc">&nbsp;        Student studentObject = studentRepository.save(student);</b>
+<b class="nc">&nbsp;        if(studentObject.getName().isEmpty()){</b>
+<b class="nc">&nbsp;            throw new ResourceNotFound(&quot;blank data can not be save, please provide specific data.&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return studentObject;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Student updateStudent(int rollno, Student student) {
+<b class="nc">&nbsp;        Student updatedStudent = studentRepository.getReferenceById(rollno);</b>
+&nbsp;
+<b class="nc">&nbsp;        updatedStudent.setName(student.getName());</b>
+<b class="nc">&nbsp;        updatedStudent.setStandard(student.getStandard());</b>
+<b class="nc">&nbsp;        updatedStudent.setRollNo(rollno);</b>
+<b class="nc">&nbsp;        updatedStudent.setSchoolId(student.getSchoolId());</b>
+&nbsp;
+<b class="nc">&nbsp;        return studentRepository.save(updatedStudent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void deleteStudent(int rollno) {
+&nbsp;
+<b class="nc">&nbsp;        Student studentObject = studentRepository.getReferenceById(rollno);</b>
+<b class="nc">&nbsp;        if(studentObject==null){</b>
+<b class="nc">&nbsp;            throw new ResourceNotFound(&quot;Object is not found in DB with given id : &quot;+rollno);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        studentRepository.delete(studentObject);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Student&gt; findAllBySchoolId(int id) {
+&nbsp;
+<b class="nc">&nbsp;        return studentRepository.findAllBySchoolId(id);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-06-01 11:44</div>
+</div>
+</body>
+</html>

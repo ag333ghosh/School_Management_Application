@@ -1,0 +1,67 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: School-micro
+
+  config:
+    import: optional:configserver:http://localhost:8083
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/schooldata
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  retry:
+    instances:
+      school_studentRetry:
+        maxAttempts: 3
+        waitDuration: 5s
+
+  circuitbreaker:
+     instances:
+       school_studentBreaker:
+         registerHealthIndicator: true
+         eventConsumerBufferSize: 10
+         failureRateThreshold: 50
+         minimumNumberOfCalls: 5
+         automaticTransitionFromOpenToHalfOpenEnabled: true
+         permittedNumberOfCallsInHalfOpenState: 3
+         waitDurationInOpenState: 6
+         slidingWindowSize: 10
+         slidingWindowType: COUNT_BASED
+
+  ratelimiter:
+    instances:
+      school_studentRateLimiter:
+        limitRefreshPeriod: 500ns
+        limitForPeriod: 2
+        timeoutDuration: 5s
+
+
+
+
+
+
+
